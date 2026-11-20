@@ -1,0 +1,14 @@
+node_modules/
+dist/
+coverage/
+logs/
+.env
+.env.local
+.env.*.local
+data/local-brain.json
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc

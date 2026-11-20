@@ -1,0 +1,22 @@
+services:
+  neural-network-brain:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: neural-network-brain
+    ports:
+      - "127.0.0.1:4310:4310"
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 4310
+      LOG_LEVEL: info
+      LOCAL_BRAIN_PATH: /app/data/local-brain.json
+      STARTER_BRAIN_PATH: /app/data/starter-brain.json
+      ENABLE_EXTERNAL_STORES: "false"
+      CACHE_TTL_MS: 15000
+      RATE_LIMIT_MAX_REQUESTS: 180
+      RATE_LIMIT_WINDOW_MS: 60000
+    volumes:
+      - "./data:/app/data"
+    restart: unless-stopped

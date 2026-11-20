@@ -1,0 +1,377 @@
+openapi: 3.1.0
+info:
+  title: Neural Network Brain API
+  version: 1.0.0
+  license:
+    name: Apache-2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  description: >-
+    API local (127.0.0.1:4310) de Neural Network Brain v1.0.0 para gestionar
+    neuronas y sinapsis locales (Plug & Play) e inspeccionar opcionalmente
+    conectores externos de memoria IA en modo solo lectura.
+servers:
+  - url: http://127.0.0.1:4310
+    description: Local Neural Network Brain Server
+paths:
+  /api/v1/health:
+    get:
+      summary: Estado de salud del servidor y de los almacenes activos
+      operationId: getHealth
+      parameters:
+        - name: mode
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [liveness]
+      responses:
+        '200':
+          description: Estado operativo del sistema (ok o degraded)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+  /api/v1/metrics:
+    get:
+      summary: Métricas SRE de solicitudes, latencias, caché y circuit breakers
+      operationId: getMetrics
+      responses:
+        '200':
+          description: Métricas en formato JSON o Prometheus text según Accept
+          content:
+            application/json:
+              schema:
+                type: object
+  /api/v1/brain/version:
+    get:
+      summary: Token ligero de revisión en disco para auto-sincronización 3D
+      operationId: getBrainVersion
+      responses:
+        '200':
+          description: Token de revisión actual sin abrir bloqueos pesados
+          content:
+            application/json:
+              schema:
+                type: object
+                required: [revisionToken, checkedAt]
+                properties:
+                  revisionToken:
+                    type: string
+                  checkedAt:
+                    type: string
+  /api/v1/brain:
+    get:
+      summary: Obtiene la instantánea completa del cerebro 3D (real o simulada)
+      operationId: getBrainSnapshot
+      parameters:
+        - name: simulateCount
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 5
+            maximum: 500
+      responses:
+        '200':
+          description: Instantánea cerebral completa con morfología, neuronas, sinapsis y estadísticas
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrainSnapshot'
+        '400':
+          description: Parámetros inválidos
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /api/v1/brain/memories:
+    post:
+      summary: Crea una nueva neurona en el almacén local (y opcionalmente sus sinapsis iniciales)
+      operationId: createMemory
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMemoryRequest'
+      responses:
+        '201':
+          description: Neurona creada y snapshot cerebral actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrainSnapshot'
+        '400':
+          description: Datos inválidos
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /api/v1/brain/memories/{id}:
+    delete:
+      summary: Elimina una neurona local (local:*) y sus sinapsis incidentes
+      operationId: deleteMemory
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Neurona eliminada y snapshot actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrainSnapshot'
+        '403':
+          description: Prohibido eliminar nodos de fuentes externas de solo lectura
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Neurona no encontrada
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /api/v1/brain/edges:
+    post:
+      summary: Crea una sinapsis explícita entre dos neuronas del almacén local
+      operationId: createSynapse
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateEdgeRequest'
+      responses:
+        '201':
+          description: Sinapsis creada y snapshot actualizado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrainSnapshot'
+        '400':
+          description: Solicitud inválida (ej. auto-bucle)
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+        '404':
+          description: Neurona origen o destino no encontrada
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /api/v1/brain/nodes/{id}:
+    get:
+      summary: Inspecciona una neurona específica y su vecindario sináptico 1-hop
+      operationId: getNeuronDetail
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: simulateCount
+          in: query
+          required: false
+          schema:
+            type: integer
+            minimum: 5
+            maximum: 500
+      responses:
+        '200':
+          description: Detalle completo de la neurona y sus conexiones
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NeuronDetail'
+        '404':
+          description: Neurona no encontrada
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+  /api/v1/brain/search:
+    get:
+      summary: Busca y filtra neuronas por texto, ubicaciones, fuente, lóbulo y confianza mínima
+      operationId: searchBrain
+      parameters:
+        - name: q
+          in: query
+          schema:
+            type: string
+        - name: source
+          in: query
+          schema:
+            type: string
+            enum: [local-brain, agentic-memory, mem0, ecc-memory-vault]
+        - name: lobe
+          in: query
+          schema:
+            type: string
+            enum: [frontal, temporal, parietal, occipital, cerebellum, limbic]
+        - name: minConfidence
+          in: query
+          schema:
+            type: number
+            minimum: 0
+            maximum: 1
+        - name: simulateCount
+          in: query
+          schema:
+            type: integer
+            minimum: 5
+            maximum: 500
+      responses:
+        '200':
+          description: Subconjunto filtrado de IDs coincidentes, nodos y aristas activas
+          content:
+            application/json:
+              schema:
+                type: object
+  /api/v1/brain/refresh:
+    post:
+      summary: Invalida la caché local y recarga el estado desde disco
+      operationId: refreshBrain
+      responses:
+        '200':
+          description: Nueva instantánea cerebral sincronizada desde disco
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BrainSnapshot'
+components:
+  schemas:
+    CreateMemoryRequest:
+      type: object
+      required: [title, content]
+      properties:
+        title:
+          type: string
+          minLength: 2
+          maxLength: 140
+        content:
+          type: string
+          minLength: 3
+          maxLength: 8000
+        kind:
+          type: string
+          default: fact
+        tags:
+          type: array
+          items:
+            type: string
+        confidence:
+          type: number
+          minimum: 0
+          maximum: 1
+          default: 0.95
+        links:
+          type: array
+          items:
+            type: object
+            required: [targetId]
+            properties:
+              targetId:
+                type: string
+              relationType:
+                type: string
+                default: related_to
+    CreateEdgeRequest:
+      type: object
+      required: [sourceId, targetId]
+      properties:
+        sourceId:
+          type: string
+        targetId:
+          type: string
+        relationType:
+          type: string
+          default: related_to
+        weight:
+          type: number
+          minimum: 0.1
+          maximum: 1
+          default: 0.9
+    ProblemDetails:
+      type: object
+      required: [type, title, status, detail, instance, correlationId]
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        status:
+          type: integer
+        detail:
+          type: string
+        instance:
+          type: string
+        correlationId:
+          type: string
+    HealthResponse:
+      type: object
+      required: [status, timestamp, uptimeSeconds, stores]
+      properties:
+        status:
+          type: string
+          enum: [ok, degraded]
+        timestamp:
+          type: string
+        uptimeSeconds:
+          type: number
+        stores:
+          type: array
+          items:
+            type: object
+    BrainSnapshot:
+      type: object
+      required: [snapshotId, revisionToken, mode, generatedAt, growthStage, morphology, nodes, edges, lobeStats, sourceStats, storeHealth]
+      properties:
+        snapshotId:
+          type: string
+        revisionToken:
+          type: string
+        mode:
+          type: string
+          enum: [live, simulation]
+        generatedAt:
+          type: string
+        growthStage:
+          type: object
+        morphology:
+          type: object
+        nodes:
+          type: array
+          items:
+            type: object
+        edges:
+          type: array
+          items:
+            type: object
+        lobeStats:
+          type: array
+          items:
+            type: object
+        sourceStats:
+          type: array
+          items:
+            type: object
+        storeHealth:
+          type: array
+          items:
+            type: object
+    NeuronDetail:
+      type: object
+      required: [node, connections]
+      properties:
+        node:
+          type: object
+        connections:
+          type: array
+          items:
+            type: object

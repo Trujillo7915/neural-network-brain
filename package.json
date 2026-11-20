@@ -1,0 +1,65 @@
+{
+  "name": "neural-network-brain",
+  "version": "1.0.0",
+  "private": false,
+  "license": "Apache-2.0",
+  "author": "Fabián Ricardo Trujillo González <https://github.com/Trujillo7915>",
+  "homepage": "https://github.com/Trujillo7915/neural-network-brain",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Trujillo7915/neural-network-brain.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Trujillo7915/neural-network-brain/issues"
+  },
+  "type": "module",
+  "description": "Interactive 3D Neural Network Brain Visualizer & Local Memory Graph Engine — Dynamic cortical morphology that evolves with your data (Apache-2.0).",
+  "keywords": [
+    "neural-network",
+    "brain-visualizer",
+    "threejs",
+    "3d-graph",
+    "knowledge-graph",
+    "memory-graph",
+    "react",
+    "typescript",
+    "hexagonal-architecture"
+  ],
+  "scripts": {
+    "dev:api": "tsx watch src/presentation/main.ts",
+    "dev:web": "vite",
+    "dev": "tsx src/presentation/main.ts",
+    "build:web": "vite build",
+    "build:server": "tsc -p tsconfig.server.json",
+    "build": "npm run build:web && npm run build:server",
+    "start": "node dist/server/presentation/main.js",
+    "typecheck": "tsc --noEmit && tsc -p tsconfig.server.json --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "test:fitness": "vitest run tests/architecture/fitness.test.ts",
+    "load-test": "node scripts/load-test.mjs",
+    "service:install": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/install-24x7-service.ps1",
+    "service:status": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/status-24x7.ps1",
+    "service:stop": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/stop-24x7-service.ps1"
+  },
+  "dependencies": {
+    "lucide-react": "^0.511.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "three": "^0.175.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "@types/react": "^19.1.2",
+    "@types/react-dom": "^19.1.2",
+    "@types/three": "^0.175.0",
+    "@vitejs/plugin-react": "^6.3.0",
+    "@vitest/coverage-v8": "^5.1.1",
+    "tsx": "^4.19.4",
+    "typescript": "^5.8.3",
+    "vite": "^8.3.8",
+    "vitest": "^5.1.1"
+  }
+}

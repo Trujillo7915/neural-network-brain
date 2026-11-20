@@ -1,0 +1,274 @@
+{
+  "nodes": [
+    {
+      "id": "local:core-01",
+      "externalId": "core-01",
+      "kind": "episode",
+      "title": "Núcleo Neural Network Brain",
+      "content": "Nodo central de conocimiento Plug & Play en ./data/local-brain.json accesible desde http://127.0.0.1:4310. Orquesta memoria episódica, decisiones técnicas y mapas de rutas locales.",
+      "confidence": 1.0,
+      "tags": ["core", "milestone", "neural-network"],
+      "createdAt": "2026-11-20T10:00:00.000Z"
+    },
+    {
+      "id": "local:core-02",
+      "externalId": "core-02",
+      "kind": "episode",
+      "title": "Motor de Morfología Adaptativa",
+      "content": "La corteza 3D evoluciona automáticamente en 4 etapas (Embrionaria, Desarrollo, Madura, Neocorteza) según el volumen real de neuronas y sinapsis almacenadas.",
+      "confidence": 0.98,
+      "tags": ["morphology", "3d", "milestone"],
+      "createdAt": "2026-11-20T10:05:00.000Z"
+    },
+    {
+      "id": "local:frontal-01",
+      "externalId": "frontal-01",
+      "kind": "decision",
+      "title": "Regla de Diseño: Arquitectura Hexagonal",
+      "content": "Decisión estructural: mantener src/domain puro sin dependencias externas de IO ni frameworks, separado de application, infrastructure y presentation.",
+      "confidence": 1.0,
+      "tags": ["decision", "architecture", "governance"],
+      "createdAt": "2026-11-20T10:10:00.000Z"
+    },
+    {
+      "id": "local:frontal-02",
+      "externalId": "frontal-02",
+      "kind": "decision",
+      "title": "Política de Seguridad en los Bordes",
+      "content": "Validar toda entrada HTTP y variables de entorno con esquemas Zod al arranque (Fail-Fast) y responder errores estandarizados en formato RFC 7807 sin stack traces.",
+      "confidence": 0.96,
+      "tags": ["rules", "security", "decision"],
+      "createdAt": "2026-11-20T10:15:00.000Z"
+    },
+    {
+      "id": "local:frontal-03",
+      "externalId": "frontal-03",
+      "kind": "preference",
+      "title": "Principio de Inmutabilidad Estricta",
+      "content": "Preferencia de ingeniería: usar estructuras inmutables (copy-on-write) en transformaciones de grafo y estado UI para prevenir efectos secundarios.",
+      "confidence": 0.94,
+      "tags": ["preference", "clean-code", "rules"],
+      "createdAt": "2026-11-20T10:20:00.000Z"
+    },
+    {
+      "id": "local:frontal-04",
+      "externalId": "frontal-04",
+      "kind": "decision",
+      "title": "Licencia Open Source Apache-2.0",
+      "content": "Distribución bajo Apache License 2.0 con archivo NOTICE preservando atribución de autoría y derechos de autor en cada fork o derivado.",
+      "confidence": 1.0,
+      "tags": ["governance", "license", "decision"],
+      "createdAt": "2026-11-20T10:25:00.000Z"
+    },
+    {
+      "id": "local:temporal-01",
+      "externalId": "temporal-01",
+      "kind": "projects",
+      "title": "Proyecto WebGL Brain Canvas",
+      "content": "Módulo visual 3D ubicado en ./src/web/brain3d/BrainScene.ts utilizando Three.js con iluminación atmosférica, raycasting y enfoque suave de cámara.",
+      "confidence": 0.97,
+      "tags": ["project", "webgl", "threejs"],
+      "createdAt": "2026-11-20T10:30:00.000Z"
+    },
+    {
+      "id": "local:temporal-02",
+      "externalId": "temporal-02",
+      "kind": "projects",
+      "title": "API REST Local de Solo Puerto Loopback",
+      "content": "Servidor HTTP nativo escuchando en http://127.0.0.1:4310 con rutas /api/v1/brain, /api/v1/brain/memories, /api/v1/brain/edges y /api/v1/health.",
+      "confidence": 0.95,
+      "tags": ["project", "api", "http"],
+      "createdAt": "2026-11-20T10:35:00.000Z"
+    },
+    {
+      "id": "local:temporal-03",
+      "externalId": "temporal-03",
+      "kind": "context",
+      "title": "Mapa de Lóbulos Cognitivos",
+      "content": "Clasificación determinística en 6 regiones: Frontal (decisiones), Temporal (proyectos), Parietal (hechos), Occipital (metodología), Cerebelo (entorno) y Límbico (hubs).",
+      "confidence": 0.96,
+      "tags": ["context", "lobes", "taxonomy"],
+      "createdAt": "2026-11-20T10:40:00.000Z"
+    },
+    {
+      "id": "local:temporal-04",
+      "externalId": "temporal-04",
+      "kind": "identity",
+      "title": "Perfil del Workspace de Usuario",
+      "content": "Espacio de conocimiento local personalizable: agrega tus propios proyectos, repositorios, notas técnicas, URLs y comandos para construir tu segundo cerebro visual.",
+      "confidence": 0.92,
+      "tags": ["identity", "workspace", "onboarding"],
+      "createdAt": "2026-11-20T10:45:00.000Z"
+    },
+    {
+      "id": "local:parietal-01",
+      "externalId": "parietal-01",
+      "kind": "fact",
+      "title": "Algoritmo de Enlaces Semánticos",
+      "content": "SemanticLinkService tokeniza contenido bilingüe (ES/EN) con similitud Jaccard + refuerzo por etiquetas compartidas (umbral >= 0.24, máx. 4 enlaces por neurona).",
+      "confidence": 0.99,
+      "tags": ["nlp", "jaccard", "graph"],
+      "createdAt": "2026-11-20T10:50:00.000Z"
+    },
+    {
+      "id": "local:parietal-02",
+      "externalId": "parietal-02",
+      "kind": "fact",
+      "title": "Extractor Automático de Ubicaciones",
+      "content": "LocationExtractor detecta rutas locales (./data/local-brain.json), URLs http://127.0.0.1:4310 y puertos (:4310) para mostrarlos como chips copiables en el Inspector.",
+      "confidence": 0.97,
+      "tags": ["locations", "inspector", "search"],
+      "createdAt": "2026-11-20T10:55:00.000Z"
+    },
+    {
+      "id": "local:parietal-03",
+      "externalId": "parietal-03",
+      "kind": "fact",
+      "title": "Patrones de Resiliencia SRE",
+      "content": "Protección integrada mediante CircuitBreaker por fuente, Retry con Exponential Backoff + Jitter, CacheAside con invalidación por versión y RateLimiter.",
+      "confidence": 0.98,
+      "tags": ["sre", "resilience", "caching"],
+      "createdAt": "2026-11-20T11:00:00.000Z"
+    },
+    {
+      "id": "local:parietal-04",
+      "externalId": "parietal-04",
+      "kind": "correction",
+      "title": "Coalescencia Single-Flight en Caché Fría",
+      "content": "Las peticiones concurrentes sobre caché fría comparten una sola promesa activa (inFlightLiveLoad), evitando lecturas redundantes a disco o almacenes externos.",
+      "confidence": 0.95,
+      "tags": ["performance", "single-flight", "optimization"],
+      "createdAt": "2026-11-20T11:05:00.000Z"
+    },
+    {
+      "id": "local:occipital-01",
+      "externalId": "occipital-01",
+      "kind": "methodology",
+      "title": "Ciclo TDD y Quality Gate (>= 80%)",
+      "content": "Suite automatizada con Vitest validando lógica de dominio, geometría 3D, endpoints HTTP, escenarios BDD y Fitness Functions con umbral mínimo de 80% de cobertura.",
+      "confidence": 0.99,
+      "tags": ["methodology", "tdd", "testing"],
+      "createdAt": "2026-11-20T11:10:00.000Z"
+    },
+    {
+      "id": "local:occipital-02",
+      "externalId": "occipital-02",
+      "kind": "runbook",
+      "title": "Runbook de Operaciones y Recuperación",
+      "content": "Procedimientos estandarizados en ./docs/manual-operaciones.md para monitoreo de salud, reinicio limpio, rotación de logs y respaldo del archivo ./data/local-brain.json.",
+      "confidence": 0.94,
+      "tags": ["runbook", "operations", "sre"],
+      "createdAt": "2026-11-20T11:15:00.000Z"
+    },
+    {
+      "id": "local:occipital-03",
+      "externalId": "occipital-03",
+      "kind": "methodology",
+      "title": "Diseño Visual Obsidiana Minimalista",
+      "content": "Interfaz HUD flotante sobre lienzo WebGL completo usando vidrio acrílico esmerilado, bordes hairline y alto contraste WCAG 2.1 AA sin neón estridente.",
+      "confidence": 0.95,
+      "tags": ["design", "accessibility", "ui"],
+      "createdAt": "2026-11-20T11:20:00.000Z"
+    },
+    {
+      "id": "local:occipital-04",
+      "externalId": "occipital-04",
+      "kind": "handoff",
+      "title": "Documentación Viva OpenAPI 3.1",
+      "content": "Contrato completo de endpoints REST en ./docs/api/openapi.yaml acompañado de colección Postman importable en ./docs/api/postman-collection.json.",
+      "confidence": 0.96,
+      "tags": ["openapi", "documentation", "contracts"],
+      "createdAt": "2026-11-20T11:25:00.000Z"
+    },
+    {
+      "id": "local:cerebellum-01",
+      "externalId": "cerebellum-01",
+      "kind": "environment",
+      "title": "Runtime Node.js & Vite 8",
+      "content": "Ejecución nativa con Node.js >= 22 en puerto :4310, compilación frontend con Vite 8 y tipado estricto TypeScript 5.8.",
+      "confidence": 0.98,
+      "tags": ["environment", "nodejs", "vite"],
+      "createdAt": "2026-11-20T11:30:00.000Z"
+    },
+    {
+      "id": "local:cerebellum-02",
+      "externalId": "cerebellum-02",
+      "kind": "environment",
+      "title": "Contenedor Docker Plug & Play",
+      "content": "Despliegue reproducible con docker compose up --build montando ./data:/app/data para persistir tus memorias locales entre reinicios.",
+      "confidence": 0.95,
+      "tags": ["docker", "environment", "devops"],
+      "createdAt": "2026-11-20T11:35:00.000Z"
+    },
+    {
+      "id": "local:cerebellum-03",
+      "externalId": "cerebellum-03",
+      "kind": "environment",
+      "title": "Conectores Opcionales de Memoria IA",
+      "content": "Activa ENABLE_EXTERNAL_STORES=true en .env para conectar opcionalmente grafos .amem, almacenes vectoriales Mem0 o bóvedas Markdown en modo solo lectura.",
+      "confidence": 0.93,
+      "tags": ["environment", "plugins", "connectors"],
+      "createdAt": "2026-11-20T11:40:00.000Z"
+    },
+    {
+      "id": "local:cerebellum-04",
+      "externalId": "cerebellum-04",
+      "kind": "environment",
+      "title": "Monitor de Revisión por Mtime",
+      "content": "StoreVersionMonitor consulta metadatos del sistema de archivos para refrescar el grafo en pantalla en menos de 5 segundos cuando creas o vinculas memorias.",
+      "confidence": 0.96,
+      "tags": ["environment", "monitoring", "sync"],
+      "createdAt": "2026-11-20T11:45:00.000Z"
+    },
+    {
+      "id": "local:limbic-01",
+      "externalId": "limbic-01",
+      "kind": "episode",
+      "title": "Simulador de Crecimiento Cortical",
+      "content": "Modo interactivo de proyección (5 a 500 neuronas) para visualizar cómo evoluciona el cerebro hacia una Neocorteza Hiperconectada sin alterar tus datos reales.",
+      "confidence": 0.97,
+      "tags": ["simulator", "milestone", "visualization"],
+      "createdAt": "2026-11-20T11:50:00.000Z"
+    },
+    {
+      "id": "local:limbic-02",
+      "externalId": "limbic-02",
+      "kind": "episode",
+      "title": "Guía Rápida: Crea tu Primera Memoria",
+      "content": "Pulsa '+ Nueva Memoria' en la barra superior para registrar una idea, proyecto o nota y vincularla con cualquier neurona existente en la red 3D.",
+      "confidence": 1.0,
+      "tags": ["onboarding", "milestone", "guide"],
+      "createdAt": "2026-11-20T11:55:00.000Z"
+    }
+  ],
+  "edges": [
+    { "id": "local-edge:1", "sourceId": "local:core-02", "targetId": "local:core-01", "relationType": "part_of", "weight": 0.95, "createdAt": "2026-11-20T10:05:00.000Z" },
+    { "id": "local-edge:2", "sourceId": "local:frontal-01", "targetId": "local:core-01", "relationType": "supports", "weight": 0.92, "createdAt": "2026-11-20T10:10:00.000Z" },
+    { "id": "local-edge:3", "sourceId": "local:frontal-02", "targetId": "local:frontal-01", "relationType": "related_to", "weight": 0.90, "createdAt": "2026-11-20T10:15:00.000Z" },
+    { "id": "local-edge:4", "sourceId": "local:frontal-03", "targetId": "local:frontal-01", "relationType": "supports", "weight": 0.88, "createdAt": "2026-11-20T10:20:00.000Z" },
+    { "id": "local-edge:5", "sourceId": "local:frontal-04", "targetId": "local:core-01", "relationType": "related_to", "weight": 0.85, "createdAt": "2026-11-20T10:25:00.000Z" },
+    { "id": "local-edge:6", "sourceId": "local:temporal-01", "targetId": "local:core-02", "relationType": "supports", "weight": 0.94, "createdAt": "2026-11-20T10:30:00.000Z" },
+    { "id": "local-edge:7", "sourceId": "local:temporal-02", "targetId": "local:frontal-02", "relationType": "supports", "weight": 0.91, "createdAt": "2026-11-20T10:35:00.000Z" },
+    { "id": "local-edge:8", "sourceId": "local:temporal-02", "targetId": "local:temporal-01", "relationType": "related_to", "weight": 0.89, "createdAt": "2026-11-20T10:35:00.000Z" },
+    { "id": "local-edge:9", "sourceId": "local:temporal-03", "targetId": "local:core-02", "relationType": "part_of", "weight": 0.92, "createdAt": "2026-11-20T10:40:00.000Z" },
+    { "id": "local-edge:10", "sourceId": "local:temporal-04", "targetId": "local:core-01", "relationType": "related_to", "weight": 0.86, "createdAt": "2026-11-20T10:45:00.000Z" },
+    { "id": "local-edge:11", "sourceId": "local:parietal-01", "targetId": "local:core-01", "relationType": "part_of", "weight": 0.93, "createdAt": "2026-11-20T10:50:00.000Z" },
+    { "id": "local-edge:12", "sourceId": "local:parietal-02", "targetId": "local:temporal-02", "relationType": "related_to", "weight": 0.88, "createdAt": "2026-11-20T10:55:00.000Z" },
+    { "id": "local-edge:13", "sourceId": "local:parietal-03", "targetId": "local:frontal-02", "relationType": "supports", "weight": 0.91, "createdAt": "2026-11-20T11:00:00.000Z" },
+    { "id": "local-edge:14", "sourceId": "local:parietal-04", "targetId": "local:parietal-03", "relationType": "part_of", "weight": 0.89, "createdAt": "2026-11-20T11:05:00.000Z" },
+    { "id": "local-edge:15", "sourceId": "local:occipital-01", "targetId": "local:frontal-01", "relationType": "supports", "weight": 0.94, "createdAt": "2026-11-20T11:10:00.000Z" },
+    { "id": "local-edge:16", "sourceId": "local:occipital-02", "targetId": "local:parietal-03", "relationType": "related_to", "weight": 0.87, "createdAt": "2026-11-20T11:15:00.000Z" },
+    { "id": "local-edge:17", "sourceId": "local:occipital-03", "targetId": "local:temporal-01", "relationType": "supports", "weight": 0.90, "createdAt": "2026-11-20T11:20:00.000Z" },
+    { "id": "local-edge:18", "sourceId": "local:occipital-04", "targetId": "local:temporal-02", "relationType": "supports", "weight": 0.91, "createdAt": "2026-11-20T11:25:00.000Z" },
+    { "id": "local-edge:19", "sourceId": "local:cerebellum-01", "targetId": "local:temporal-01", "relationType": "supports", "weight": 0.88, "createdAt": "2026-11-20T11:30:00.000Z" },
+    { "id": "local-edge:20", "sourceId": "local:cerebellum-02", "targetId": "local:cerebellum-01", "relationType": "related_to", "weight": 0.85, "createdAt": "2026-11-20T11:35:00.000Z" },
+    { "id": "local-edge:21", "sourceId": "local:cerebellum-03", "targetId": "local:core-01", "relationType": "part_of", "weight": 0.84, "createdAt": "2026-11-20T11:40:00.000Z" },
+    { "id": "local-edge:22", "sourceId": "local:cerebellum-04", "targetId": "local:temporal-02", "relationType": "supports", "weight": 0.90, "createdAt": "2026-11-20T11:45:00.000Z" },
+    { "id": "local-edge:23", "sourceId": "local:limbic-01", "targetId": "local:core-02", "relationType": "related_to", "weight": 0.93, "createdAt": "2026-11-20T11:50:00.000Z" },
+    { "id": "local-edge:24", "sourceId": "local:limbic-02", "targetId": "local:core-01", "relationType": "supports", "weight": 0.95, "createdAt": "2026-11-20T11:55:00.000Z" },
+    { "id": "local-edge:25", "sourceId": "local:limbic-02", "targetId": "local:temporal-04", "relationType": "related_to", "weight": 0.90, "createdAt": "2026-11-20T11:55:00.000Z" },
+    { "id": "local-edge:26", "sourceId": "local:frontal-04", "targetId": "local:occipital-04", "relationType": "related_to", "weight": 0.82, "createdAt": "2026-11-20T11:56:00.000Z" },
+    { "id": "local-edge:27", "sourceId": "local:parietal-01", "targetId": "local:temporal-03", "relationType": "supports", "weight": 0.89, "createdAt": "2026-11-20T11:57:00.000Z" },
+    { "id": "local-edge:28", "sourceId": "local:occipital-01", "targetId": "local:parietal-03", "relationType": "related_to", "weight": 0.86, "createdAt": "2026-11-20T11:58:00.000Z" }
+  ]
+}

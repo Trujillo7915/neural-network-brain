@@ -1,0 +1,96 @@
+{
+  "info": {
+    "name": "Neural Network Brain API v1.0.0",
+    "description": "Colección de pruebas Plug & Play para Neural Network Brain (127.0.0.1:4310).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:4310"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [{ "key": "X-Correlation-ID", "value": "postman-health-001" }],
+        "url": "{{baseUrl}}/api/v1/health"
+      }
+    },
+    {
+      "name": "Get Live Brain Snapshot",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/v1/brain"
+      }
+    },
+    {
+      "name": "Get Brain Version Token",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/v1/brain/version"
+      }
+    },
+    {
+      "name": "Create Local Memory Neuron",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"title\": \"Nota de Arquitectura\",\n  \"content\": \"Servicio API en http://127.0.0.1:4310 con rutas versionadas.\",\n  \"kind\": \"fact\",\n  \"tags\": [\"architecture\", \"api\"],\n  \"confidence\": 0.95,\n  \"links\": [{ \"targetId\": \"local:core-01\", \"relationType\": \"supports\" }]\n}"
+        },
+        "url": "{{baseUrl}}/api/v1/brain/memories"
+      }
+    },
+    {
+      "name": "Create Synapse Between Neurons",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"sourceId\": \"local:core-02\",\n  \"targetId\": \"local:frontal-01\",\n  \"relationType\": \"supports\",\n  \"weight\": 0.9\n}"
+        },
+        "url": "{{baseUrl}}/api/v1/brain/edges"
+      }
+    },
+    {
+      "name": "Search Brain Memories",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/v1/brain/search?q=architecture&source=local-brain"
+      }
+    },
+    {
+      "name": "Inspect Single Neuron",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/v1/brain/nodes/local%3Acore-01"
+      }
+    },
+    {
+      "name": "Get Simulated Neocortex (250 Neurons)",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/v1/brain?simulateCount=250"
+      }
+    },
+    {
+      "name": "Refresh Cache",
+      "request": {
+        "method": "POST",
+        "url": "{{baseUrl}}/api/v1/brain/refresh"
+      }
+    },
+    {
+      "name": "Metrics (JSON)",
+      "request": {
+        "method": "GET",
+        "url": "{{baseUrl}}/api/v1/metrics"
+      }
+    }
+  ]
+}
