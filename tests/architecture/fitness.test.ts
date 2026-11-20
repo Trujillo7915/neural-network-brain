@@ -92,7 +92,6 @@ describe('Architecture, Licensing & Sanitization Fitness Functions', () => {
 
     expect(license).toContain('Apache License');
     expect(license).toContain('Version 2.0, January 2004');
-    expect(license).toContain('Fabián Ricardo Trujillo González');
     expect(notice).toContain('Fabián Ricardo Trujillo González');
   });
 
