@@ -2,6 +2,16 @@
 
 All notable changes to **Neural Network Brain** are documented in this file following [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [Semantic Versioning](https://semver.org/).
 
+## [1.1.0] - 2026-11-20
+
+### Added
+- **Intelligent Memory Pruning Engine (`MemoryPruningService`):** pure domain service implementing human-like selective forgetting:
+  - **Ephemeral TTL Pruning:** automatically identifies ephemeral memories (`plans`, `temp`, `ephemeral`, `daily`, `plan-*`, `post-mortem`) older than a configurable TTL (default: 3 days).
+  - **Semantic/Lexical Deduplication:** detects duplicate or superseded memories via Jaccard token similarity (configurable same-kind and cross-kind thresholds), preserving the most recent record.
+  - **Core Memory Protection:** long-term core kinds (`identity`, `rules`, `methodology`, `environment`, `team`, `project_architecture`, `runbook`, `preference`) are never auto-pruned as ephemeral.
+- **Pruning API Endpoint (`POST /api/v1/brain/prune`):** supports `dryRun` preview mode, custom `ephemeralTtlDays`, and similarity thresholds with Zod validation and cache invalidation.
+- **Unit Test Suite (`tests/unit/pruning.test.ts`):** verifies ephemeral TTL pruning, core kind protection, and newest-first deduplication.
+
 ## [1.0.0] - 2026-11-20
 
 ### Added

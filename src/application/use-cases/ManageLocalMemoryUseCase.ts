@@ -10,7 +10,24 @@ import type {
   CreateMemoryInput,
   WritableMemoryStorePort,
 } from '../../domain/ports/WritableMemoryStorePort.js';
+import {
+  MemoryPruningService,
+  type PruneCandidate,
+  type PrunePolicy,
+} from '../../domain/services/MemoryPruningService.js';
 import type { GetBrainSnapshotUseCase } from './GetBrainSnapshotUseCase.js';
+
+export interface PruneMemoriesInput extends Partial<PrunePolicy> {
+  readonly dryRun?: boolean;
+}
+
+export interface PruneMemoriesResult {
+  readonly dryRun: boolean;
+  readonly scanned: number;
+  readonly prunedCount: number;
+  readonly candidates: readonly PruneCandidate[];
+  readonly snapshot?: BrainSnapshot;
+}
 
 export class ManageLocalMemoryUseCase {
   private readonly snapshotUseCase: GetBrainSnapshotUseCase;
@@ -58,6 +75,41 @@ export class ManageLocalMemoryUseCase {
 
     this.snapshotUseCase.invalidateCache();
     return this.snapshotUseCase.execute({ forceRefresh: true });
+  }
+
+  async pruneMemories(input: PruneMemoriesInput = {}): Promise<PruneMemoriesResult> {
+    const store = this.requireWritableStore();
+    const dryRun = input.dryRun ?? false;
+    const { nodes } = await store.load();
+    const plan = MemoryPruningService.findCandidates(nodes, input);
+
+    if (dryRun || plan.candidates.length === 0) {
+      return {
+        dryRun,
+        scanned: plan.scanned,
+        prunedCount: 0,
+        candidates: plan.candidates,
+      };
+    }
+
+    let prunedCount = 0;
+    for (const candidate of plan.candidates) {
+      if (candidate.id.startsWith('local:')) {
+        const removed = await store.deleteNeuron(candidate.id);
+        if (removed) prunedCount += 1;
+      }
+    }
+
+    this.snapshotUseCase.invalidateCache();
+    const snapshot = await this.snapshotUseCase.execute({ forceRefresh: true });
+
+    return {
+      dryRun: false,
+      scanned: plan.scanned,
+      prunedCount,
+      candidates: plan.candidates,
+      snapshot,
+    };
   }
 
   private requireWritableStore(): WritableMemoryStorePort {

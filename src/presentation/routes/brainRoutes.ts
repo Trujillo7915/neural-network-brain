@@ -65,6 +65,13 @@ const CreateEdgeBodySchema = z.object({
   weight: z.coerce.number().min(0.1).max(1).default(0.9),
 });
 
+const PruneBodySchema = z.object({
+  dryRun: z.boolean().default(false),
+  ephemeralTtlDays: z.coerce.number().int().min(0).max(365).default(3),
+  sameKindThreshold: z.coerce.number().min(0.3).max(1).default(0.55),
+  crossKindThreshold: z.coerce.number().min(0.5).max(1).default(0.78),
+});
+
 export interface BrainRouteDeps {
   readonly snapshotUseCase: GetBrainSnapshotUseCase;
   readonly detailUseCase: GetNeuronDetailUseCase;
@@ -133,6 +140,30 @@ async function readJsonBody(req: http.IncomingMessage): Promise<unknown> {
   }
 }
 
+async function readOptionalJsonBody(req: http.IncomingMessage): Promise<unknown> {
+  const chunks: Buffer[] = [];
+  let totalBytes = 0;
+
+  for await (const chunk of req) {
+    const buf = Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk);
+    totalBytes += buf.length;
+    if (totalBytes > MAX_JSON_BODY_BYTES) {
+      throw new ValidationError(`El cuerpo JSON excede el máximo permitido (${MAX_JSON_BODY_BYTES} bytes).`);
+    }
+    chunks.push(buf);
+  }
+
+  const rawText = Buffer.concat(chunks).toString('utf8').trim();
+  if (!rawText) {
+    return {};
+  }
+  try {
+    return JSON.parse(rawText);
+  } catch {
+    throw new ValidationError('Formato JSON inválido en el cuerpo de la petición.');
+  }
+}
+
 export async function handleBrainRoutes(
   req: http.IncomingMessage,
   res: http.ServerResponse,
@@ -164,6 +195,15 @@ export async function handleBrainRoutes(
     if (method !== 'POST') return methodNotAllowed(res, pathname, correlationId, 'Use POST /api/v1/brain/refresh.');
     const snapshot = await deps.snapshotUseCase.execute({ forceRefresh: true });
     sendJson(res, 200, snapshot);
+    return true;
+  }
+
+  if (pathname === '/api/v1/brain/prune') {
+    if (method !== 'POST') return methodNotAllowed(res, pathname, correlationId, 'Use POST /api/v1/brain/prune.');
+    const rawBody = await readOptionalJsonBody(req);
+    const body = PruneBodySchema.parse(rawBody);
+    const result = await deps.manageUseCase.pruneMemories(body);
+    sendJson(res, 200, result);
     return true;
   }
 
